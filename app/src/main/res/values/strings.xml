@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Flickr Findr</string>
+    <string name="image_search">Search Flickr Here</string>
+</resources>
