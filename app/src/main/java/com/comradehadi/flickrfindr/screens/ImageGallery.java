@@ -12,17 +12,20 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.comradehadi.flickrfindr.R;
+import com.comradehadi.flickrfindr.data.LocalStore;
 import com.comradehadi.flickrfindr.utils.ServerRequestHandler;
 
 
 public class ImageGallery extends AppCompatActivity {
 
     private static final String TAG = ImageGallery.class.getSimpleName();
+    LocalStore localStore ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
+        localStore = new LocalStore(ImageGallery.this);
     }
 
 
@@ -35,7 +38,7 @@ public class ImageGallery extends AppCompatActivity {
 
     private void handleIntent(Intent intent) {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
+            String query = localStore.retrieveLastQuery();
             Log.d(TAG, "Received a new search query: " + query);
 
             PreferenceManager.getDefaultSharedPreferences(this)

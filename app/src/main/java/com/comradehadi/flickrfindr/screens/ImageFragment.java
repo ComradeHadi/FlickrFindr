@@ -1,5 +1,6 @@
 package com.comradehadi.flickrfindr.screens;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -62,8 +63,9 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
 
         switch (view.getId()){
             case R.id.backButton:
-                getFragmentManager().beginTransaction().remove(new ImageFragment()).commitAllowingStateLoss();
-                Log.e("clikc", "BACK BUTTON");
+//                getFragmentManager().beginTransaction().remove(new ImageFragment()).commitAllowingStateLoss();
+//                Log.e("clikc", "BACK BUTTON");
+                startActivity(new Intent(getContext(), MainSearch.class));
 
                 break;
 
