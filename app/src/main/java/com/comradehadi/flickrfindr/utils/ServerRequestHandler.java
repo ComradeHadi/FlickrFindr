@@ -30,7 +30,7 @@ public class ServerRequestHandler {
         return instance;
     }
 
-    public static String getItemUrl(String query, int page) {
+    public static String getImageUrl(String query) {
         String url;
         if (query != null) {
             url = Uri.parse(ENDPOINT).buildUpon()

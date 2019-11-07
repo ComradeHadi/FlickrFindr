@@ -29,6 +29,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.comradehadi.flickrfindr.R;
 import com.comradehadi.flickrfindr.data.ImageGalleryItem;
+import com.comradehadi.flickrfindr.data.LocalStore;
 import com.comradehadi.flickrfindr.utils.ImageGalleryAdapter;
 import com.comradehadi.flickrfindr.utils.ServerRequestHandler;
 import com.reginald.swiperefresh.CustomSwipeRefreshLayout;
@@ -45,8 +46,8 @@ import java.util.List;
 public class ImageGalleryFragment extends Fragment {
 
     private static final String TAG = ImageGalleryFragment.class.getSimpleName();
-    private static final int COLUMN_NUM = 3;
-    private static final int ITEM_PER_PAGE = 100;
+    private static final int COLUMN_NUM = 8;
+    private static final int ITEM_PER_PAGE = 25;
 
     private RequestQueue mRq;
     private RecyclerView mRecyclerView;
@@ -57,6 +58,8 @@ public class ImageGalleryFragment extends Fragment {
 
     private boolean mLoading = false;
     private boolean mHasMore = true;
+
+    private LocalStore localStore;
 
     private SearchView mSearchView;
 
@@ -76,6 +79,8 @@ public class ImageGalleryFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_gallery, container, false);
         mRq = Volley.newRequestQueue(getActivity());
+
+        localStore = new LocalStore(getContext());
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
@@ -117,22 +122,19 @@ public class ImageGalleryFragment extends Fragment {
 
     private void startLoading() {
 
-        Log.d(TAG, "startLoading");
         mLoading = true;
         int totalItem = mLayoutManager.getItemCount();
-        final int page = totalItem / ITEM_PER_PAGE + 1;
+        final int page = 25;
 
-        String query = PreferenceManager
-                .getDefaultSharedPreferences(getActivity())
-                .getString(ServerRequestHandler.PREF_SEARCH_QUERY, null);
+        String query = localStore.retrieveLastQuery();
 
-        String url = ServerRequestHandler.getInstance().getItemUrl(query, page);
+        String url = ServerRequestHandler.getInstance().getImageUrl(query);
 
         JsonObjectRequest request = new JsonObjectRequest(url,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d(TAG, "onResponse " + response);
+
                         List<ImageGalleryItem> result = new ArrayList<>();
                         try {
                             JSONObject photos = response.getJSONObject("photos");

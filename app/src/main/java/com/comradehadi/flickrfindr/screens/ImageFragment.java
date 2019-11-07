@@ -59,13 +59,9 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
 
-        Log.e("clikc", "Click");
-        Toast.makeText(getContext(), "CLICK", Toast.LENGTH_LONG).show();
-
         switch (view.getId()){
             case R.id.backButton:
-//                getFragmentManager().beginTransaction().remove(new ImageFragment()).commitAllowingStateLoss();
-//                Log.e("clikc", "BACK BUTTON");
+
                 startActivity(new Intent(getContext(), MainSearch.class));
 
                 break;

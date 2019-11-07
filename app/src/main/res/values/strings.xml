@@ -2,6 +2,6 @@
     <string name="app_name">Flickr Findr</string>
     <string name="image_search">Search Flickr Here</string>
     <string name="title_activity_main_search">MainSearch</string>
-    <string name="textInstruction">Enter Search QUery to get Flickr Images</string>
+    <string name="textInstruction">Enter Search Query to get Flickr Images</string>
     <string name="searchButton">Search</string>
 </resources>
