@@ -50,6 +50,7 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
         mItem = (ImageGalleryItem) getActivity().getIntent().getSerializableExtra("item");
         mPhoto = (ImageView) view.findViewById(R.id.photo);
         mBackButton = (Button) view.findViewById(R.id.backButton);
+        mBackButton.setOnClickListener(this);
         Glide.with(getContext()).load(mItem.getUrl()).thumbnail(0.5f).into(mPhoto);
         return view;
     }
